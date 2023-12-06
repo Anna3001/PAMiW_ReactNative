@@ -2,7 +2,7 @@ import { MovieModel } from "../models/movieModel.js";
 
 const URL = "http://localhost:3000/";
 
-async function fetchAPI(ep, data) {
+export async function fetchAPI(ep, data) {
   return fetch(ep, data).then((res) => {
     if (res.ok) { return res.json(); }
     else { throw new Error("ERROR!!!"); }
@@ -92,6 +92,26 @@ export async function createMovie(movie) {
   }
 }  
 
+export async function createUser(user) {
+  const ep = `${URL}api/createUser`;
+
+  const method = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(movie),
+  };
+
+  try {
+    const message = await fetchAPI(ep, method);
+    return message;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+}
+
 export async function deleteById(id) {
   const ep = `${URL}api/deleteMovieByID/${id}`;
   const m = { method: "DELETE" };
@@ -101,6 +121,30 @@ export async function deleteById(id) {
     return message;
   } catch (error) {
     console.error("Error:", error);
+    throw error;
+  }
+}
+
+export async function registerUser(username, password, role) {
+  const registrationEndpoint = `${URL}api/register`;
+
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      username,
+      password,
+      role,
+    }),
+  };
+
+  try {
+    const response = await fetchAPI(registrationEndpoint, requestOptions);
+    return response;
+  } catch (error) {
+    console.error("Error during registration:", error);
     throw error;
   }
 }

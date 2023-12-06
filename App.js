@@ -1,28 +1,17 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import { useState } from "react";
-import AddMovieForm from './views/AddMovieForm'; 
-import UpdateMovieForm from './views/UpdateMovieForm'; 
-import DeleteMovieForm from './views/DeleteMovieForm';
-import GetAllMovies from './views/GetAllMovies';
-import GetByTDForm from './views/GetByTDForm';
-import TableView from './views/TableView'
-import GetById from './views/GetById'
+import React, { useState } from 'react';
+import { View, StyleSheet } from 'react-native'; 
+import Authorization from "./.shared/loginAPI";
+import AuthForm from './views/AuthForm';
+import Home from './Home'
 
 export default function App() {
   const [movies, setMovies] = useState([]);
+  const [token, setToken] = useState(Authorization.isToken());
 
   return (
-    <View style={styles.container}>
-      <StatusBar style="auto" />
-      <AddMovieForm />
-      <UpdateMovieForm />
-      <DeleteMovieForm />
-      <GetByTDForm />
-      <GetById />
-      <GetAllMovies />
-      <TableView movies={movies} setMovies={setMovies}/>
-    </View>
+     <View style={styles.container}>  
+      {token ? ( <Home /> ) : ( <AuthForm setToken={setToken} />)} 
+    </View>  
   );
 }
 
@@ -33,4 +22,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+
 });

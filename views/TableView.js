@@ -6,7 +6,7 @@ import { getAll } from "../viewModels/getAllMoviesViewModel";
 
 export default function TableView({ movies, setMovies}) {
   const tableHead = ["Id", "Title", "Director", "Country"];
-  const widthArray = [100, 200, 200, 200];
+  const widthArray = [50, 100, 100, 100];
 
   const [startPoint, setStartPoint] = useState(0);
   const [pageNumber, setPageNumber] = useState(0); 
